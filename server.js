@@ -17,5 +17,15 @@ app.listen(port, function(){
 
 
 app.get("/", function(req, res){
-    res.sendFile(__dirname + "/books.json");
+    var id = req.query.id;
+    if (typeof id === 'undefined'){
+        res.sendFile(__dirname + "/books.json");
+    }else {
+        if(id > 0){
+            res.send(books[id -1 ]);
+        }
+        else{
+            res.status(404).send("Something went wrong!");
+        }
+    }
 });
