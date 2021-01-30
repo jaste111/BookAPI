@@ -42,13 +42,12 @@ app.post("/", function (req, res) {
 });
 
 app.put("/", function(req, res){
-    res.send("Got a PUT request");
     const updatedBook = req.body;
     const idOfBook = updatedBook.id;
    
     const indexOfBook = books.findIndex((el) => el.id ===  idOfBook);
     if(indexOfBook === -1){
-        res.status(400).send("ID does not exist");
+        return res.status(400).send("ID does not exist");
     }else{
         books[indexOfBook] = updatedBook;
         var booksData = JSON.stringify(books, null, 2);
