@@ -54,3 +54,17 @@ app.put("/", function(req, res){
         fs.writeFileSync(bookFileName, booksData);
     }
 });
+
+app.delete("/", function(req, res){
+  const removedBook = req.body;
+  const idOfBook = removedBook.id;
+  const indexOfBook = books.findIndex((el) => el.id === idOfBook);
+
+  if(indexOfBook === -1){
+    res.status(400).send("ID does not exist");
+  }else {
+    books.splice(indexOfBook, 1);
+    var booksData = JSON.stringify(books, null, 2);
+    fs.writeFileSync(bookFileName, booksData);
+  }
+});
